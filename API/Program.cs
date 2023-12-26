@@ -9,7 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(opt=>{
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnectionString"));
 });
+builder.Services.AddCors();
 var app = builder.Build();
+
+//adding middle ware cors
+app.UseCors(builder=>builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
 app.UseHttpsRedirection();
 
